@@ -75,6 +75,17 @@ this.transferEOS = function(value) {
     return res;
 };
 
+
+this.transferFOInternal = function(toAccount, value) {
+    var self = this;
+    var memo = toAccount;
+    var fromAccount = self.fibosAccount;
+    var ctx = self.fibosClient.contractSync("eosio.token");
+    var res = ctx.transferSync(fromAccount, toAccount, value, memo);
+    return res;
+};
+
+
 this.withdrawEOS = function(value) {
     var self = this;
     var fibosAccount = self.fibosAccount;
