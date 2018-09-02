@@ -136,6 +136,14 @@ this.delegatebw = function(toAccount, value) {
     return res;
 };
 
+this.voteproducer = function(toAccount) {
+    var self = this;
+    var fromAccount = self.fibosAccount;
+    var ctx = self.fibosClient.contractSync("eosio");
+    var res = ctx.voteproducerSync(fromAccount, "", [toAccount]);
+    return res;
+};
+
 // "acount", "acount", "100.0000 FO"
 this.buyram = function(payer, receiver, value) {
     var self = this;
