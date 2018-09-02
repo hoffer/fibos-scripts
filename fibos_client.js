@@ -121,6 +121,21 @@ this.exchangeEOS = function(value) {
     return res;
 }
 
+
+this.delegatebw = function(toAccount, value) {
+    var self = this;
+    var fromAccount = self.fibosAccount;
+    var ctx = self.fibosClient.contractSync("eosio");
+    var res = ctx.delegatebwSync({
+        from: fromAccount,
+        receiver: toAccount,
+        stake_net_quantity: value,
+        stake_cpu_quantity: value,
+        transfer: 0
+    });
+    return res;
+};
+
 // "acount", "acount", "100.0000 FO"
 this.buyram = function(payer, receiver, value) {
     var self = this;

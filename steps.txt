@@ -1,0 +1,21 @@
+export FIBOS_ACCOUNT=
+export FIBOS_PUBKEY=
+export FIBOS_PRIKEY=
+export EOS_ACCOUNT=
+export EOS_PRIKEY=
+export EOS_AMOUNT="1.0000 EOS"
+export FO_AMOUNT="500.0000 FO"
+export TARGET_FO_ACCOUNT=
+
+fibos transferEOS.js
+fibos getBalance.js
+fibos buyFO.js
+fibos getBalance.js
+
+fibos buyEOS.js
+fibos withdrawEOS.js
+
+fibos transferFOInternal.js
+
+fibos delegatebw.js
+
