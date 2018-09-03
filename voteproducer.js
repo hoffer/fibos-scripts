@@ -9,6 +9,7 @@ config = {
 }
 
 var client = new FibosClient(config);
-var res = client.voteproducer(process.env.TARGET_FO_ACCOUNT);
+var accounts = ["bitzebitze11"]
+var res = client.voteproducer(accounts);
 console.log(res);
 
