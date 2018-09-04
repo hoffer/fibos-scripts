@@ -156,6 +156,12 @@ this.setproducerjson = function(producerjson) {
     return res;
 };
 
+this.claimrewards = function() {
+    var self = this;
+    var res = self.fibosClient.claimrewardsSync(self.fibosAccount);
+    return res;
+};
+
 this.removeproducerjson = function() {
     var self = this;
     var ctx = self.fibosClient.contractSync("producerjson");
