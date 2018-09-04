@@ -144,6 +144,29 @@ this.voteproducer = function(toAccounts) {
     return res;
 };
 
+this.setproducerjson = function(producerjson) {
+    var self = this;
+    var ctx = self.fibosClient.contractSync("producerjson");
+    var res = ctx.setSync({
+        "owner": self.fibosAccount,
+        "json": JSON.stringify(producerjson)
+        }, {
+            "authorization": self.fibosAccount
+        })
+    return res;
+};
+
+this.removeproducerjson = function() {
+    var self = this;
+    var ctx = self.fibosClient.contractSync("producerjson");
+    var res = ctx.delSync({
+        "owner": self.fibosAccount
+        }, {
+            "authorization": self.fibosAccount
+        })
+    return res;
+};
+
 // "acount", "acount", "100.0000 FO"
 this.buyram = function(payer, receiver, value) {
     var self = this;
