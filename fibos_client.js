@@ -140,7 +140,7 @@ this.voteproducer = function(toAccounts) {
     var self = this;
     var fromAccount = self.fibosAccount;
     var ctx = self.fibosClient.contractSync("eosio");
-    var res = ctx.voteproducerSync(fromAccount, "", toAccounts);
+    var res = ctx.voteproducerSync(fromAccount, "", toAccounts.sort());
     return res;
 };
 
