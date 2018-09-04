@@ -15,10 +15,8 @@ jsonData = {
      "producer_public_key": "FO56K4J8eESbLRs4YhmHNF1QsWDySUrvWWJvYWaiTNZyXT8J4aH7",
      "org": {
        "candidate_name": "Bitze",
-       "website": "https://bitze.org",
-       "ownership_disclosure": "https://bitze.org/ownership_disclosure",
-       "code_of_conduct": "https://bitze.org/code_of_conduct",
-       "email":"hello@bitze.org",
+       "website": "http://bitze.site",
+       "email":"hello@bitze.site",
        "location": {
          "name": "Oregon",
          "country": "US",
@@ -46,6 +44,16 @@ jsonData = {
             "longitude": -122.6762
          },
          "node_type" : "producer"
+       },
+       {
+         "location": {
+             "name": "Oregon",
+             "country": "US",
+             "latitude": 45.5234,
+             "longitude": -122.6762
+          },
+         "node_type" : "seed",
+         "p2p_endpoint": "seed.bitze.site:9870"
        }
      ]
    }
