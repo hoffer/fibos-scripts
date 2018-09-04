@@ -15,7 +15,7 @@ var config = {
     "public-key": keys[1],
     "private-key": keys[2],
     "httpEndpoint": "http://ca-rpc.fibos.io:8870",
-    "url": "http://bitze.io"
+    "url": "http://bitze.site"
 };
 
 var fibos = FIBOS({
