@@ -22,17 +22,6 @@ jsonData = {
          "country": "US",
          "latitude": 45.5234,
          "longitude": -122.6762
-       },
-       "social": {
-         "steemit": "",
-         "twitter": "",
-         "youtube": "",
-         "facebook": "",
-         "github":"",
-         "reddit": "",
-         "keybase": "",
-         "telegram": "",
-         "wechat":""
        }
      },
      "nodes": [
