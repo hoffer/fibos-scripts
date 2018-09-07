@@ -47,20 +47,28 @@ this.generateKeys = function() {
     return {pubkey: pubkey, prikey: prikey}
 };
 
-this.createAccount = function(account) {
+this.createAccount = function(newAccount, newAccountPubkey) {
     var self = this;
-    var httpClient = new http.Client();
-    var httpServerHost = cfg.fibos_http_server_host;
-    var pubkey = self.fibosPubKey;
-    var res = httpClient.post(httpServerHost, {
-        json: {
-                account: account || self.fibosAccount,
-                pubkey: pubkey
-        }
-    }).json()
-    if (res.message == "success") {
-        self.fibosAccount = account;
-    }
+    var res = self.fibosClient.transactionSync(tr => {
+        tr.newaccount({
+            creator: self.fibosAccount,
+            name: newAccount,
+            owner: newAccountPubkey,
+            active: newAccountPubkey
+        });
+        tr.buyrambytes({
+            payer: self.fibosAccount,
+            receiver:  newAccount,
+            bytes: 4096
+        });
+        tr.delegatebw({
+            from: self.fibosAccount,
+            receiver:  newAccount,
+            stake_net_quantity: '0.1000 FO',
+            stake_cpu_quantity: '0.1000 FO',
+            transfer: 1
+        });
+    });
     return res;
 };
 
@@ -176,7 +184,7 @@ this.removeproducerjson = function() {
 // "acount", "acount", "100.0000 FO"
 this.buyram = function(payer, receiver, value) {
     var self = this;
-    var res = self.fibosClient.buyramSync(payer, receiver, value)
+    var res = self.fibosClient.buyrambytesSync(payer, receiver, value);
     return res;
 };
 
