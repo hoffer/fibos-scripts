@@ -47,112 +47,13 @@ this.createAccount = function(newAccount, newAccountPubkey) {
     return res;
 };
 
-// value format: 1.0000 EOS
-this.transferEOS = function(value) {
+this.getTableRows = function(owner, contractName, tableName) {
     var self = this;
-    var eosAccount = self.eosAccount;
-    var memo = self.fibosAccount;
-    var fibosRemoteAccount = cfg.fibos_remote_account;
-    var ctx = self.eosClient.contractSync("eosio.token");
-    var res = ctx.transferSync(eosAccount, fibosRemoteAccount, value, memo);
-    return res;
-};
-
-
-this.transferFOInternal = function(toAccount, value) {
-    var self = this;
-    var memo = toAccount;
-    var fromAccount = self.fibosAccount;
-    var ctx = self.fibosClient.contractSync("eosio.token");
-    var res = ctx.transferSync(fromAccount, toAccount, value, memo);
-    return res;
-};
-
-
-this.withdrawEOS = function(value) {
-    var self = this;
-    var fibosAccount = self.fibosAccount;
-    var memo = self.eosAccount;
-    var fibosRemoteAccount = cfg.fibos_remote_account;
-    var ctx = self.fibosClient.contractSync("eosio.token");
-    var res = ctx.transferSync(fibosAccount, fibosRemoteAccount, value, memo);
-    return res;
-}
-
-this.getBalance = function(account) {
-    var self = this;
-    var targetAccount = account || self.fibosAccount;
-    var res = self.fibosClient.getTableRowsSync(true, "eosio.token", targetAccount, "accounts");
-    return res;
-};
-
-this.exchangeFO = function(value) {
-    var self = this;
-    let ctx = self.fibosClient.contractSync("eosio.token");
-    var res = ctx.exchangeSync(self.fibosAccount, value + "@eosio", `0.0000 FO@eosio`, `exchange EOS to FO`, {
-        authorization: self.fibosAccount
-    });
-    return res;
-};
-
-this.exchangeEOS = function(value) {
-    var self = this;
-    let ctx = self.fibosClient.contractSync("eosio.token");
-    var res = ctx.exchangeSync(self.fibosAccount, value + "@eosio", `0.0000 EOS@eosio`, `exchange FO to EOS`, {
-        authorization: self.fibosAccount
-    });
-    return res;
-}
-
-
-this.delegatebw = function(toAccount, value) {
-    var self = this;
-    var fromAccount = self.fibosAccount;
-    var ctx = self.fibosClient.contractSync("eosio");
-    var res = ctx.delegatebwSync({
-        from: fromAccount,
-        receiver: toAccount,
-        stake_net_quantity: value,
-        stake_cpu_quantity: value,
-        transfer: 0
-    });
-    return res;
-};
-
-this.voteproducer = function(toAccounts) {
-    var self = this;
-    var fromAccount = self.fibosAccount;
-    var ctx = self.fibosClient.contractSync("eosio");
-    var res = ctx.voteproducerSync(fromAccount, "", toAccounts.sort());
-    return res;
-};
-
-this.setproducerjson = function(producerjson) {
-    var self = this;
-    var ctx = self.fibosClient.contractSync("producerjson");
-    var res = ctx.setSync({
-        "owner": self.fibosAccount,
-        "json": JSON.stringify(producerjson)
-        }, {
-            "authorization": self.fibosAccount
-        })
-    return res;
-};
-
-this.claimrewards = function() {
-    var self = this;
-    var res = self.fibosClient.claimrewardsSync(self.fibosAccount);
-    return res;
-};
-
-this.removeproducerjson = function() {
-    var self = this;
-    var ctx = self.fibosClient.contractSync("producerjson");
-    var res = ctx.delSync({
-        "owner": self.fibosAccount
-        }, {
-            "authorization": self.fibosAccount
-        })
+    var res = self.fibosClient.getTableRowsSync({
+	    "scope": owner,
+	    "code": contractName,
+	    "table": tableName,
+	    "json": true});
     return res;
 };
 
