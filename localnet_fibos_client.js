@@ -57,56 +57,11 @@ this.getTableRows = function(owner, contractName, tableName) {
     return res;
 };
 
-// "acount", "acount", "100.0000 FO"
-this.buyram = function(payer, receiver, value) {
+this.updateTable = function(contractName, content) {
     var self = this;
-    var res = self.fibosClient.buyrambytesSync(payer, receiver, value);
-    return res;
-};
-
-this.sellram = function(receiver, bytes) {
-    var self = this;
-    var res = self.fibosClient.sellramSync(receiver, bytes)
-    return res;
-};
-
-this.getRamPrice = function() {
-    var self = this;
-    var rs = self.fibosClient.getTableRowsSync(true, "eosio", "eosio", "rammarket");
-    var a = parseFloat(rs.rows[0].quote.balance.split(" ")[0]);
-    var b = parseFloat(rs.rows[0].base.balance.split(" ")[0]);
-    var price = a / b * 1024;
-    return price + " FO/KB";
-};
-
-this.getAccount = function(account) {
-    var self = this;
-    return self.fibosClient.getAccountSync(account);
-};
-
-this.createToken = function(max_supply, weight, max_exchange, reserve_supply, reserve_connector_balance) {
-    var self = this;
-    var ctx = self.fibosClient.contractSync("eosio.token");
-    var res = ctx.excreateSync(self.fibosAccount, max_supply, weight, max_exchange, reserve_supply, reserve_connector_balance, {
-        authorization: self.fibosAccount
-    });
-    return res;
-};
-
-this.exchangeToken = function(fromAmount, toAmount, memo) {
-    var self = this;
-    var ctx = self.fibosClient.contractSync("eosio.token");
-    var res = ctx.exchangeSync(self.fibosAccount, fromAmount, toAmount, memo, {
-            authorization: self.fibosAccount
-        });
-    return res;
-};
-
-this.destroyToken = function(token) {
-    var self = this;
-    var ctx = self.fibosClient.contractSync("eosio.token");
-    var res = ctx.exdestroySync(token, {
-            authorization: self.fibosAccount
+    var ctx = self.fibosClient.contractSync(contractName);
+    var res = ctx.updateSync(content,{
+          "authorization": self.fibosAccount
         });
     return res;
 };
