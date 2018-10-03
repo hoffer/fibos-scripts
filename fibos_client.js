@@ -144,6 +144,19 @@ this.delegatebw = function(toAccount, value) {
     return res;
 };
 
+this.undelegatebw = function(toAccount, value) {
+    var self = this;
+    var fromAccount = self.fibosAccount;
+    var ctx = self.fibosClient.contractSync("eosio");
+    var res = ctx.undelegatebwSync({
+            from: fromAccount,
+            receiver: toAccount,
+            unstake_net_quantity: value,
+            unstake_cpu_quantity: value
+        });
+    return res;
+};
+
 this.voteproducer = function(toAccounts) {
     var self = this;
     var fromAccount = self.fibosAccount;
