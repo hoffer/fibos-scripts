@@ -64,8 +64,8 @@ this.createAccount = function(newAccount, newAccountPubkey) {
         tr.delegatebw({
             from: self.fibosAccount,
             receiver:  newAccount,
-            stake_net_quantity: '0.1000 FO',
-            stake_cpu_quantity: '0.1000 FO',
+            stake_net_quantity: '1.0000 FO',
+            stake_cpu_quantity: '1.0000 FO',
             transfer: 1
         });
     });
