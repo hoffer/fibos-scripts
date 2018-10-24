@@ -248,4 +248,46 @@ this.destroyToken = function(token) {
     return res;
 };
 
+this.changeActiveKey = function(newPublickey) {
+    // change active key (use owner or active key)
+    var self = this;
+    var ctx = self.fibosClient.contractSync("eosio");
+    var res = ctx.updateauthSync({
+        account: self.fibosAccount,
+        permission: "active",
+        parent: 'owner',
+        auth: {
+            threshold: 1,
+            keys: [{
+                key: newPublickey,
+                weight: 1
+            }]
+        },
+    }, {
+        authorization: self.fibosAccount
+        });
+    return res;
+}
+
+this.changeOwnerKey = function(newPublickey) {
+    // change owner key (use owner key Only)
+    var self = this;
+    var ctx = self.fibosClient.contractSync("eosio");
+    var res = ctx.updateauthSync({
+        account: self.fibosAccount,
+        permission: "owner",
+        parent: '',
+        auth: {
+            threshold: 1,
+            keys: [{
+                key: newPublickey,
+                weight: 1
+            }]
+        },
+    }, {
+        authorization: self.fibosAccount + "@owner"
+        });
+    return res;
+}
+
 }).call(FibosClient.prototype);
