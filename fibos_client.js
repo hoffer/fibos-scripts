@@ -111,6 +111,60 @@ this.getBalance = function(account) {
     return res;
 };
 
+this.getTableRows = function(targetAccount, contractName, tableName) {
+    var self = this;
+    var res = self.fibosClient.getTableRowsSync({
+	    "scope": targetAccount,
+	    "code": contractName,
+        "table": tableName,
+        "limit" : 20,
+	    "json": true});
+    return res;
+};
+
+/*
+  "get_table_rows": {
+    "brief": "Fetch smart contract data from an account.",
+    "params": {
+      "json": { "type": "bool", "default": false},
+      "code": "name",
+      "scope": "string",
+      "table": "name",
+      "table_key": "string",
+      "lower_bound": {"type": "string", "default": "0"},
+      "upper_bound": {"type": "string", "default": "-1"},
+      "limit": {"type": "uint32", "default": "10"},
+      "key_type": {
+        "type": "string",
+        "doc": "The key type of --index, primary only supports (i64), all others support (i64, i128, i256, float64, float128). Special type 'name' indicates an account name."
+      },
+      "index_position": {
+        "type": "string",
+        "doc": "1 - primary (first), 2 - secondary index (in order defined by multi_index), 3 - third index, etc"
+      }
+    },
+    "results": {
+      "rows": {
+        "type": "vector",
+        "doc": "One row per item, either encoded as hex String or JSON object"
+      },
+      "more": {
+        "type": "bool",
+        "doc": "True if last element in data is not the end and sizeof data() < limit"
+      }
+    }
+  },
+*/
+
+this.updateTable = function(contractName, content) {
+    var self = this;
+    var ctx = self.fibosClient.contractSync(contractName);
+    var res = ctx.updateSync(content,{
+          "authorization": self.fibosAccount
+        });
+    return res;
+};
+
 this.exchangeFO = function(value) {
     var self = this;
     let ctx = self.fibosClient.contractSync("eosio.token");
