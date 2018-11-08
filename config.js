@@ -3,6 +3,6 @@ module.exports = {
   "eos_endpoint": "http://api.eosbeijing.one",
   "fibos_remote_account": "fiboscouncil",
   "fibos_chainid": "6aa7bd33b6b45192465afa3553dedb531acaaff8928cf64b70bd4c5e49b7ec6a",
-  "fibos_endpoint": "http://api.bitze.site",
+  "fibos_endpoint": "http://rpc-mainnet.fibos123.com",
   "fibos_http_server_host": "http://tunnel.fibos.io/1.0/app/token/create"
 }
